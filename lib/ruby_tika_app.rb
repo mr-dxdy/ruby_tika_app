@@ -57,7 +57,7 @@ class RubyTikaApp
   private
 
   def run_tika(option)
-    final_cmd = "#{@tika_cmd} #{option} --encoding=UTF-8 '#{@document}'"
+    final_cmd = "LANG=C.utf8 #{@tika_cmd} #{option} --encoding=UTF-8 '#{@document}'"
 
     _, stdin, stdout, stderr = Open4.popen4(final_cmd)
 
