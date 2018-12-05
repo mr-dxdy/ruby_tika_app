@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'stringio'
-require 'open4'
+require 'open3'
 
 class RubyTikaApp
   class Error < RuntimeError; end
@@ -59,21 +59,17 @@ class RubyTikaApp
   def run_tika(option)
     final_cmd = "LANG=C.utf8 #{@tika_cmd} #{option} --encoding=UTF-8 '#{@document}'"
 
-    _, stdin, stdout, stderr = Open4.popen4(final_cmd)
+    stdout, stderr, status = Open3.capture3(final_cmd)
 
-    stdout_result = stdout.read.strip
-    stderr_result = stderr.read.strip
+    stdout_result = stdout.strip
+    stderr_result = stderr.strip
 
-    unless strip_stderr(stderr_result).empty?
+    unless status.success?
       raise(CommandFailedError.new(stderr_result),
             "execution failed with status #{stderr_result}: #{final_cmd}")
     end
 
     stdout_result
-  ensure
-    stdin.close
-    stdout.close
-    stderr.close
   end
 
   def strip_stderr(err)

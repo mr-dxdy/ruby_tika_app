@@ -18,8 +18,6 @@ Gem::Specification.new do |s|
   s.require_paths = %w[lib]
   s.test_files    = Dir.glob('spec/**/*')
 
-  s.add_runtime_dependency('open4')
-
   s.add_development_dependency('bundler', '>= 1.0.15')
   s.add_development_dependency('json')
   s.add_development_dependency('pry')
