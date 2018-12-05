@@ -57,7 +57,7 @@ class RubyTikaApp
   private
 
   def run_tika(option)
-    final_cmd = "LANG=C.utf8 #{@tika_cmd} #{option} --encoding=UTF-8 '#{@document}'"
+    final_cmd = "LANG=C.UTF-8 #{@tika_cmd} #{option} --encoding=UTF-8 '#{@document}'"
 
     stdout, stderr, status = Open3.capture3(final_cmd)
 
